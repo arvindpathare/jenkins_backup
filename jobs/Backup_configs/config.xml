@@ -1,7 +1,6 @@
-<?xml version='1.1' encoding='UTF-8'?>
-<project>
+<?xml version="1.1" encoding="UTF-8" standalone="no"?><project>
   <actions/>
-  <description></description>
+  <description/>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.1.1"/>
@@ -9,6 +8,7 @@
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
@@ -29,23 +29,25 @@ git add -- *.xml jobs/*/*.xml userContent/*
 if [ -d users ]; then
     user_configs=`ls users/*/config.xml`
 
-    if [ -n &quot;$user_configs&quot; ]; then
+    if [ -n "$user_configs" ]; then
         git add $user_configs
     fi
 fi
 
-# mark as deleted anything that&apos;s been, well, deleted
-to_remove=`git status | grep &quot;deleted&quot; | awk &apos;{print $3}&apos;`
+# mark as deleted anything that's been, well, deleted
+to_remove=`git status | grep "deleted" | awk '{print $3}'`
 
-if [ -n &quot;$to_remove&quot; ]; then
+if [ -n "$to_remove" ]; then
     git rm --ignore-unmatch $to_remove
 fi
 
-git commit -m &quot;Automated Jenkins commit&quot;
+git commit -m "Automated Jenkins commit"
 
-git remote add origin git@github.com:arvindpathare/jenkins_backup
+#git remote add origin git@github.com:arvindpathare/jenkins_backup
 
-git push -q -u origin master</command>
+git push https://arvindpathare:Sai@baba1234@github.com/arvindpathare/jenkins_backup.git
+
+#git push -q -u origin master</command>
       <configuredLocalRules/>
     </hudson.tasks.Shell>
   </builders>
