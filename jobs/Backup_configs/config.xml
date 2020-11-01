@@ -1,0 +1,54 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.plugins.jira.JiraProjectProperty plugin="jira@3.1.1"/>
+    <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.31">
+      <autoRebuild>false</autoRebuild>
+      <rebuildDisabled>false</rebuildDisabled>
+    </com.sonyericsson.rebuild.RebuildSettings>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># Jenkins Configuraitons Directory
+cd $JENKINS_HOME
+ git init
+# Add general configurations, job configurations, and user content
+git add -- *.xml jobs/*/*.xml userContent/*
+
+# only add user configurations if they exist
+if [ -d users ]; then
+    user_configs=`ls users/*/config.xml`
+
+    if [ -n &quot;$user_configs&quot; ]; then
+        git add $user_configs
+    fi
+fi
+
+# mark as deleted anything that&apos;s been, well, deleted
+to_remove=`git status | grep &quot;deleted&quot; | awk &apos;{print $3}&apos;`
+
+if [ -n &quot;$to_remove&quot; ]; then
+    git rm --ignore-unmatch $to_remove
+fi
+
+git commit -m &quot;Automated Jenkins commit&quot;
+
+git remote add origin git@github.com:arvindpathare/jenkins_backup
+
+git push -q -u origin master</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
