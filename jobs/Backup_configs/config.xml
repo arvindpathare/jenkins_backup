@@ -45,7 +45,7 @@ git commit -m "Automated Jenkins commit"
 
 #git remote add origin git@github.com:arvindpathare/jenkins_backup
 
-git push https://arvindpathare:Sai@baba1234@github.com/arvindpathare/jenkins_backup.git
+git push https://arvindpathare:Sai*baba123@github.com/arvindpathare/jenkins_backup.git
 
 #git push -q -u origin master</command>
       <configuredLocalRules/>
